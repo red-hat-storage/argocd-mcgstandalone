@@ -1,0 +1,31 @@
+##
+# ArgoCD values
+##
+
+## Helm Repo GIT
+helmRepoUrl: https://github.com/likid0/mcgstandalone
+
+# ArgoCD apps definition
+apps:
+
+# if deploy-mcg app is enabled Argocd app called deploy-mcg will get created in
+# openshift-gitops argocd instance, autosync is disable by default.
+  deploy-mcg:
+    branch: main
+    enabled: true
+    path: mcg/
+    autosync: false
+# If deploy-lvmo is enable logical volume operator argocd app will get created
+# in openshift-gitops argocd instance, current lvmo version will use all disks
+# available in the SNO node. autosync is disable by default.
+  deploy-lvmo:
+    branch: main
+    enabled: true
+    path: lvmo/
+    autosync: false
+
+
+namespaces:
+  - openshift-storage
+  - openshift-operators
+  - openshift-gitops

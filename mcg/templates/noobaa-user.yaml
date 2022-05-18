@@ -1,0 +1,19 @@
+{{- if $.Values.mcgstandalone.createuser.enabled }}
+apiVersion: noobaa.io/v1alpha1
+kind: NooBaaAccount
+metadata:
+  labels:
+    app: noobaa
+  annotations:
+    argocd.argoproj.io/hook: "PostSync"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  name: {{ $.Values.mcgstandalone.createuser.name }}
+  namespace: openshift-storage
+spec:
+  allow_bucket_creation: false
+  allowed_buckets:
+    full_permission: false
+    permission_list:
+    - first.bucket
+  default_resource: noobaa-default-backing-store
+{{- end }}

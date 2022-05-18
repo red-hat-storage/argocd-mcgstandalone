@@ -1,0 +1,9 @@
+##
+# SNO Chart values
+##
+#
+
+lvmo:
+  channel: 'stable-4.10'
+  enabled: true
+  vgname: 'mcg-vg'

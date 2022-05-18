@@ -1,0 +1,55 @@
+##
+# MCG Chart values
+##
+#
+
+## Only MCG will be deployed no ODF/Rook/Ceph components will be deployed.
+#IMPORTAN!!: The default values regarding resources are very low and only for demo
+#purposes.
+#If more performance is needed please increase resources values as needed.
+
+mcgstandalone:
+  enabled: true
+# Set the lvmo flag to enabled if you are going to use the provided logical volume operator argocd application in
+# this repo, using lvmo will give you a storage class using the disks from the
+# SNO node.
+  lvmo: disabled
+# Select the storage class that will be used for the Noobaa database.
+  scname: 'odf-lvm-vgmcg'
+# An example account will be created during deployment in the openshift-storage
+# namespace when createuser is enabled, although it is recommended to use object bucket claims.
+  createuser:
+    enabled: true
+    name: demo
+# This value is in case of load, what would be set as the HPA min/max target
+# for the noobaa-endpoint deployment.
+  endpointworkers:
+    min: 1
+    max: 1
+
+odf:
+# ODF Version/Channel
+#  channel: 'stable-4.9'
+  channel: 'stable-4.10'
+# Resource limits per MCG service
+  noobaacore:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 400m
+      memory: 700Mi
+  noobaadb:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 400m
+      memory: 700Mi
+  noobaaendpoint:
+    limits:
+      cpu: 1500m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 700Mi

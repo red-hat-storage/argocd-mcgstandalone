@@ -1,0 +1,11 @@
+apiVersion: v2
+name: lvmo-argocd
+description: A Helm chart to deploy LVMO for SNO
+type: application
+
+version: 0.1.0
+appVersion: 0.1.16
+
+mantainers:
+  - name: Daniel Parkes
+    email: dparkes@redhat.com
