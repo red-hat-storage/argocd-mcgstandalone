@@ -1,23 +1,23 @@
-# Multi Cloud Gateway Standalone deployment 
-Repo to deploy ODF Multi-Cloud Gateway standalone using an argoCD application
+# Logical volume Operator & Multi Cloud Gateway Standalone deployment 
+Repo to deploy ODF Multi-Cloud Gateway standalone using an argoCD application.
+This Repo has an additional helm chart to deploy the ODF Logical volume Operator.
 
 If you don't have a running instance of argocd on your OCP cluster you can run
 the setup.sh script available in the repo, it will setup a basic
-openshift-gitops instance with the mcg application.
+openshift-gitops instance with the lvmo & mcg application.
 
-1. Fork & Clone the repo 'https://github.com/likid0/mcgstandalone', using the
+
+1. Fork & Clone the repo 'https://github.com/red-hat-storage/argocd-mcgstandalone', using the
    gh cli in this example:
 
 ```
-$ gh repo fork git@github.com:likid0/mcgstandalone.git --clone
+$ gh repo fork https://github.com/red-hat-storage/argocd-mcgstandalone.git --clone
 ```
-
 2. Make modifications as needed to the argocd deployment.
 ```
 $ vi argocd/values.yaml
 ```
 3. If you have enabled the deployment of LVMO in the argocd/values.yaml file, Make modifications to the lvmo/values.yaml file
-
 ```
 $ vi lvmo/values.yaml
 ```
@@ -30,11 +30,16 @@ $ vi mcg/values.yaml
 ```
 $ bash setup.sh
 ```
-6. You can check that the phase state is Ready to verify MCG is up and running:
+6. Once the setup script as finished you can go into the argocd UI or use argocd cli to start the sync of the argo applications that got created, you first need to sync the LVMO app(it you are using Logical Volume Operator for your storage), and finally sync the ODF MCG app.
+```
+$ argocd app sync deploy-lvmo 
+$ argocd app sync deploy-mcg
+```
+7. You can check that the phase state is Ready to verify MCG is up and running:
 ```
 $ kubectl get noobaa noobaa -o jsonpath='{.status.phase}{"\n"}'
 ```
-7. MCG is ready to be used a default user has been created for testing,
+8. MCG is ready to be used a default user has been created for testing,
    configure your S3 client:
 
 ```
@@ -44,3 +49,4 @@ $ S3EXTENDPOINT=$(kubectl get route s3  -o jsonpath='{.spec.host}{"\n"}' -n open
 $ alias s3='AWS_ACCESS_KEY_ID=$NOOBAA_ACCESS_KEY AWS_SECRET_ACCESS_KEY=$NOOBAA_SECRET_KEY aws --endpoint https://$S3EXTENDPOINT --no-verify-ssl s3'
 $ s3 ls
 ```
+
