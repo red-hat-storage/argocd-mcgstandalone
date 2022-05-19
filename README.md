@@ -4,7 +4,7 @@ This Repo has an additional helm chart to deploy the ODF Logical volume Operator
 
 If you don't have a running instance of argocd on your OCP cluster you can run
 the setup.sh script available in the repo, it will setup a basic
-openshift-gitops instance with the lvmo & mcg application.
+openshift-gitops instance with the lvmo & mcg Argocd applications ready to deploy.
 
 
 1. Fork & Clone the repo 'https://github.com/red-hat-storage/argocd-mcgstandalone', using the
