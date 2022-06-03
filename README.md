@@ -1,4 +1,12 @@
 # Logical volume Operator & Multi Cloud Gateway Standalone deployment 
+This is NOT and officially supported Red Hat Repo.
+
+This repo intention is to offer a starting point for further developent and
+customization by the final user.
+
+Deploying MCG standalone on SNO with LVM is a Dev preview feature, currently
+without suppport
+
 Repo to deploy ODF Multi-Cloud Gateway standalone using an argoCD application.
 This Repo has an additional helm chart to deploy the ODF Logical volume Operator.
 
